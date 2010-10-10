@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<package>
+  <metadata>
+    <id>mios.localization</id>
+    <version>1.0.0</version>
+    <authors>
+      <author>Joakim Beijar</author>
+    </authors>
+    <description>A localization framework, currently for working with XML based translation dictionaries.</description>
+    <language>en</language>
+  </metadata>
+</package>
