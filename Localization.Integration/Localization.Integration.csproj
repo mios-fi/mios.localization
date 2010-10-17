@@ -8,8 +8,8 @@
     <ProjectGuid>{B6B742F5-1D7B-49C1-B135-7B880E975F76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Localization.Integration</RootNamespace>
-    <AssemblyName>Localization.Integration</AssemblyName>
+    <RootNamespace>Mios.Localization.Integration</RootNamespace>
+    <AssemblyName>Mios.Localization.Integration</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -2,7 +2,7 @@
 using Xunit;
 using System.Globalization;
 
-namespace Localization.Integration {
+namespace Mios.Localization.Integration {
 	public class XmlRepositoryTests {
 		[Fact]
 		public void CanLoadFromRootDirectory() {

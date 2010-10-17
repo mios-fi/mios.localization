@@ -18,20 +18,20 @@ namespace Mios.Localization {
 		static IDictionary<string,string> LoadResources(XDocument document, CultureInfo culture) {
 			return document.Root.Elements("key")
 				.ToDictionary(t => t.Attribute("id").Value, 
-				              t => GetSpecificOrNeutralValue(t,culture));
+				              t => GetRegionalOrNeutralValue(t,culture));
 		}
 
-		private static string GetSpecificOrNeutralValue(XElement keyElement, CultureInfo culture) {
-			var elements = keyElement.Elements(IdentifierOfCulture(culture));
-			if(!culture.IsNeutralCulture) {
-				elements = elements.Union(keyElement.Elements(IdentifierOfCulture(culture.Parent)));
-			}
-			var element = elements.FirstOrDefault();
-			return element==null?null:element.Value;
+		private static string GetRegionalOrNeutralValue(XElement key, CultureInfo culture) {
+			return GetValue(key, culture) ?? GetValue(key, culture.Parent);
 		}
 
-		private static string IdentifierOfCulture(CultureInfo culture) {
-			return culture.Name.Replace("-",String.Empty);
+		private static string GetValue(XElement key, CultureInfo culture) {
+			var localeKey = culture.Name.Replace("-",String.Empty);
+			return key
+				.Elements(localeKey)
+				.Select(t => t.Value)
+				.Where(t => !String.IsNullOrEmpty(t))
+				.FirstOrDefault();
 		}
 
 		public string Get(string key) {

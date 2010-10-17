@@ -26,7 +26,7 @@ namespace Mios.Localization.Tests {
 		}
 		[Fact]
 		public void GetSimple_NoValueAvailable_ReturnsNull() {
-			var set = CreateSimpleSet(new CultureInfo("sv-fi"));
+			var set = CreateSimpleSet(new CultureInfo("sv"));
 			Assert.Null(set.Get("NOTFOUND"));
 		}
 
@@ -38,6 +38,7 @@ namespace Mios.Localization.Tests {
 						<fi>sämpylä</fi>
 						<sv>fralla</sv>
 						<svFI>semla</svFI>
+						<svSE></svSE>
 					</key>
 					<key id=""bread"">
 						<fi>leipä</fi>
@@ -51,14 +52,18 @@ namespace Mios.Localization.Tests {
 			var set = CreateRegionSet(new CultureInfo("sv"));
 			Assert.Equal("fralla", set.Get("bun"));
 		}
-
 		[Fact]
 		public void GetRegionSpecificCulture_unavailable_ReturnsNeutralCultureValue() {
 			XmlResourceSet set;
 			set = CreateRegionSet(new CultureInfo("sv-fi"));
 			Assert.Equal("bröd", set.Get("bread"));
 		}
-
+		[Fact]
+		public void GetRegionSpecificCulture_availableEmpty_ReturnsNeutralCultureValue() {
+			XmlResourceSet set;
+			set = CreateRegionSet(new CultureInfo("sv-se"));
+			Assert.Equal("fralla", set.Get("bun"));
+		}
 		[Fact]
 		public void GetRegionSpecificCulture_available_ReturnsRegionSpecificCultureValue() {
 			var set = CreateRegionSet(new CultureInfo("sv-fi"));

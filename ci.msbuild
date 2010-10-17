@@ -1,0 +1,68 @@
+ <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<UsingTask
+		AssemblyFile="..\bin\xunit-1.5\xunit.runner.msbuild.dll"
+		TaskName="Xunit.Runner.MSBuild.xunit"/>
+	<UsingTask
+		AssemblyFile="..\bin\MSBuild.Community.Tasks.dll"
+		TaskName="MSBuild.Community.Tasks.AssemblyInfo"/>
+
+	<PropertyGroup Condition="'$(build_number)'==''">
+    <build_number>0</build_number>
+  </PropertyGroup>
+	<PropertyGroup>
+		<VersionString>1.0.$(build_number).0</VersionString>
+		<CompanyName>Mios e-Solutions</CompanyName>
+		<OutputDirectory>out</OutputDirectory>
+		<SourceDirectory>.</SourceDirectory>
+	</PropertyGroup>
+	<ItemGroup>
+		<Projects Include="$(SourceDirectory)\*.sln"/>
+	</ItemGroup>
+
+	<!-- Update assembly version info with build number -->
+	<Target Name="Version">
+		<ItemGroup>
+			<VersionInfoToUpdate Include="$(SourceDirectory)\**\*\VersionInfo.cs"/>			
+		</ItemGroup>
+		<PropertyGroup>
+			<InformationalBuildTag Condition="'$(Configuration)'!='Release'"> ($(Configuration))</InformationalBuildTag>
+		</PropertyGroup>
+		<AssemblyInfo CodeLanguage="CS" 
+			OutputFile="%(VersionInfoToUpdate.Identity)"
+			AssemblyCompany="$(CompanyName)"
+			AssemblyCopyright="Copyright (c) $(CompanyName)"
+			AssemblyProduct="$(ProductName)"
+			AssemblyConfiguration="$(Configuration)"
+			AssemblyVersion="$(VersionString)" 
+			AssemblyInformationalVersion="$(VersionString)$(InformationalBuildTag)" 
+			AssemblyFileVersion="$(VersionString)" />
+	</Target>
+
+	<!-- Cleanup -->
+	<Target Name="Clean">
+		<RemoveDir Directories="$(OutputDirectory)" />
+		<MSBuild Projects="@(Projects)" Targets="Clean"/>
+	</Target>
+	
+	<!-- Perform main builds -->
+	<Target Name="Build" DependsOnTargets="Version">
+		<MSBuild Projects="@(Projects)" Targets="Build"/>
+	</Target>
+	
+	<!-- Run unit tests -->
+	<Target Name="Test" DependsOnTargets="Build">
+		<ItemGroup>
+			<Assemblies Include="$(SourceDirectory)\*.Tests\bin\$(Configuration)\*.Tests.dll"/>
+		</ItemGroup>
+		<xunit Assembly="@(Assemblies)"/>
+	</Target>
+	
+	<Target Name="Package" DependsOnTargets="Build">
+		<ItemGroup>
+			<PackageSpecs Include="$(SourceDirectory)\*\*.nuspec" />
+			<PackageFiles Include="$(SourceDirectory)\*\*.nupkg" />
+		</ItemGroup>
+		<Exec Command="..\bin\nupack.exe @(PackageSpecs)"/>
+		<Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(OutputDirectory)" />
+	</Target>
+</Project>
