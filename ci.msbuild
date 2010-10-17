@@ -16,7 +16,7 @@
 		<SourceDirectory>.</SourceDirectory>
 	</PropertyGroup>
 	<ItemGroup>
-		<Projects Include="$(SourceDirectory)\*.sln"/>
+		<Projects Include="$(SourceDirectory)\*\*.csproj"/>
 	</ItemGroup>
 
 	<!-- Update assembly version info with build number -->
@@ -57,12 +57,16 @@
 		<xunit Assembly="@(Assemblies)"/>
 	</Target>
 	
-	<Target Name="Package" DependsOnTargets="Build">
+	<Target Name="Package" DependsOnTargets="EnsureEnvironment;Build">
 		<ItemGroup>
 			<PackageSpecs Include="$(SourceDirectory)\*\*.nuspec" />
 			<PackageFiles Include="$(SourceDirectory)\*\*.nupkg" />
 		</ItemGroup>
-		<Exec Command="..\bin\nupack.exe @(PackageSpecs)"/>
-		<Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(OutputDirectory)" />
+		<Exec WorkingDirectory="$(OutputDirectory)" Command="..\..\bin\nupack.exe ..\@(PackageSpecs)"/>
+	</Target>
+	
+	<!-- Ensure environment -->
+	<Target Name="EnsureEnvironment">
+		<MakeDir Directories="$(OutputDirectory)"/>
 	</Target>
 </Project>
