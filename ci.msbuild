@@ -59,10 +59,9 @@
 	
 	<Target Name="Package" DependsOnTargets="EnsureEnvironment;Build">
 		<ItemGroup>
-			<PackageSpecs Include="$(SourceDirectory)\*\*.nuspec" />
-			<PackageFiles Include="$(SourceDirectory)\*\*.nupkg" />
+			<PackageSpecs Include="$(SourceDirectory)\*.nuspec" />
 		</ItemGroup>
-		<Exec WorkingDirectory="$(OutputDirectory)" Command="..\..\bin\nupack.exe ..\@(PackageSpecs)"/>
+		<Exec WorkingDirectory="$(OutputDirectory)" Command="..\..\bin\nupack.exe ..\%(PackageSpecs.Identity)"/>
 	</Target>
 	
 	<!-- Ensure environment -->

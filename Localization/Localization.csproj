@@ -48,11 +48,6 @@
     <Compile Include="XmlResourceRepository.cs" />
     <Compile Include="XmlResourceSet.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Mios.Localization.nuspec">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
   <PropertyGroup>

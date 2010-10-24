@@ -6,8 +6,8 @@
     <authors>
       <author>Joakim Beijar</author>
     </authors>
-    <description>A localization framework, currently for working with XML based translation dictionaries.</description>
+    <description>A localization framework for working with XML based translation dictionaries.</description>
     <language>en</language>
   </metadata>
-	<files src="bin\Debug\*.dll" target="lib" /> 
+	<files src="Localization\bin\Release\Mios.Localization.dll" target="lib" /> 
 </package>
