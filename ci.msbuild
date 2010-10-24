@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<!-- Update assembly version info with build number -->
-	<Target Name="Version">
+	<Target Name="Version" Condition="'@(VersionInfoToUpdate)'!=''">
 		<ItemGroup>
 			<VersionInfoToUpdate Include="$(SourceDirectory)\**\*\VersionInfo.cs"/>			
 		</ItemGroup>
