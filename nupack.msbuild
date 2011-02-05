@@ -61,7 +61,7 @@
 		<ItemGroup>
 			<PackageSpecs Include="$(SourceDirectory)\*.nuspec" />
 		</ItemGroup>
-		<Exec WorkingDirectory="$(OutputDirectory)" Command="..\..\bin\nupack.exe ..\%(PackageSpecs.Identity)"/>
+		<Exec WorkingDirectory="$(OutputDirectory)" Command="..\..\bin\nuget.exe ..\%(PackageSpecs.Identity)"/>
 	</Target>
 	
 	<!-- Ensure environment -->
