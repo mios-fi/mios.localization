@@ -3,11 +3,11 @@
   <metadata>
     <id>mios.localization</id>
     <version>1.0.0.0</version>
-    <authors>
-      <author>Joakim Beijar</author>
-    </authors>
+    <authors>Mios</authors>
     <description>A localization framework for working with XML based translation dictionaries.</description>
     <language>en</language>
   </metadata>
-	<files src="Localization\bin\Release\Mios.Localization.dll" target="lib" /> 
+	<files>
+		<file src="Localization\bin\Release\Mios.Localization.dll" target="lib" />
+	</files>
 </package>
