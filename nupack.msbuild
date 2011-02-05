@@ -1,4 +1,4 @@
- <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+ <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Test;Package">
 	<UsingTask
 		AssemblyFile="..\bin\xunit-1.5\xunit.runner.msbuild.dll"
 		TaskName="Xunit.Runner.MSBuild.xunit"/>
@@ -54,7 +54,7 @@
 		<ItemGroup>
 			<Assemblies Include="$(SourceDirectory)\*.Tests\bin\$(Configuration)\*.Tests.dll"/>
 		</ItemGroup>
-		<xunit Assembly="@(Assemblies)"/>
+		<xunit Condition="'@(Assemblies)'!=''" Assembly="@(Assemblies)"/>
 	</Target>
 	
 	<Target Name="Package" DependsOnTargets="EnsureEnvironment;Build">
