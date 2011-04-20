@@ -8,6 +8,6 @@
     <language>en</language>
   </metadata>
 	<files>
-		<file src="Localization\bin\Release\Mios.Localization.dll" target="lib" />
+		<file src="Localization\bin\Release\*.dll" target="lib" />
 	</files>
 </package>
