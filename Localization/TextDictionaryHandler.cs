@@ -4,17 +4,17 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Mios.Localization {
-	public class TextDictionaryLoader : ILocalizationLoader {
-		public virtual LocalizationDictionary Load(string sourceFile) {
+	public class TextDictionaryHandler : ILocalizationReader {
+		public virtual ILocalizationDictionary Read(string sourceFile) {
 			if(!File.Exists(sourceFile)) return null;
 			using(var reader = new StreamReader(sourceFile)) {
 				return Load(reader);
 			}
 		}
-		public virtual LocalizationDictionary Load(TextReader reader) {
+		public virtual ILocalizationDictionary Load(TextReader reader) {
 			return Load(ReadLines(reader));
 		}
-		protected LocalizationDictionary Load(IEnumerable<string> lines) {
+		protected ILocalizationDictionary Load(IEnumerable<string> lines) {
 			var dictionary = new LocalizationDictionary();
 			string key = null, locale = null, value = null, whitespace = null;
 			foreach(var line in lines) {

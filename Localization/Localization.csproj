@@ -42,18 +42,22 @@
   <ItemGroup>
     <Compile Include="DictionaryLocalizer.cs" />
     <Compile Include="DictionaryDecorator.cs" />
-    <Compile Include="EmbeddedTextDictionaryLoader.cs" />
-    <Compile Include="ILocalizationLoader.cs" />
+    <Compile Include="EmbeddedTextDictionaryHandler.cs" />
+    <Compile Include="FilteringLocalizationReader.cs" />
+    <Compile Include="ILocalizationWriter.cs" />
+    <Compile Include="ILocalizationReader.cs" />
     <Compile Include="LocalizationDictionary.cs" />
-    <Compile Include="LocalizationLoader.cs" />
+    <Compile Include="VirtualPathLocalizationReader.cs" />
+    <Compile Include="LocalizationLoaderExtensions.cs" />
+    <Compile Include="LocalizationReader.cs" />
     <Compile Include="LocalizedString.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="LocalizerExtensions.cs" />
     <Compile Include="NullLocalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadOnlyDictionary.cs" />
-    <Compile Include="TextDictionaryLoader.cs" />
-    <Compile Include="XmlDictionaryLoader.cs" />
+    <Compile Include="TextDictionaryHandler.cs" />
+    <Compile Include="XmlDictionaryHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--

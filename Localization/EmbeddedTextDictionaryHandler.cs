@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Mios.Localization {
-	public class EmbeddedTextDictionaryLoader : TextDictionaryLoader {
+	public class EmbeddedTextDictionaryHandler : TextDictionaryHandler {
 		private static readonly Regex DictionaryStartPattern = new Regex(@"^@\*\s+DICTIONARY");
 		private static readonly Regex WhitespaceDetectionPattern = new Regex(@"^\s*");
 		protected override IEnumerable<string> ReadLines(TextReader reader) {

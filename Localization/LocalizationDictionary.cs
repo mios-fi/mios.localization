@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 
 namespace Mios.Localization {
-	public class LocalizationDictionary {
+	public interface ILocalizationDictionary {
+		string this[string locale, string key] { get; set; }
+		IEnumerable<string> Keys { get; }
+		IEnumerable<string> Locales { get; }
+		IDictionary<string, string> InLocale(string locale);
+	}
+
+	public class LocalizationDictionary : ILocalizationDictionary {
 		private readonly IEqualityComparer<string> comparer;
 		private readonly List<string> keys;
 		private readonly HashSet<string> locales;
