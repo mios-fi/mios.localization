@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mios.Localization {
 	public interface ILocalizationDictionary {
@@ -12,14 +13,16 @@ namespace Mios.Localization {
 	public class LocalizationDictionary : ILocalizationDictionary {
 		private readonly IEqualityComparer<string> comparer;
 		private readonly List<string> keys;
-		private readonly HashSet<string> locales;
-		private readonly Dictionary<string,Dictionary<string,string>> dictionaries;
-		public LocalizationDictionary() : this(StringComparer.InvariantCultureIgnoreCase) {
+		private readonly HashSet<string> localesHash;
+		private readonly HashSet<string> keysHash;
+		private readonly Dictionary<string, Dictionary<string, string>> dictionaries;
+		public LocalizationDictionary() : this(StringComparer.InvariantCulture) {
 		}
 		public LocalizationDictionary(IEqualityComparer<string> comparer) {
 			this.comparer = comparer;
 			keys = new List<string>();
-			locales = new HashSet<string>(comparer);
+			localesHash = new HashSet<string>(comparer);
+			keysHash = new HashSet<string>(comparer);
 			dictionaries = new Dictionary<string, Dictionary<string, string>>(comparer);
 		}
 		public string this[string locale, string key] {
@@ -35,9 +38,10 @@ namespace Mios.Localization {
 				return null;
 			}
 			set {
-				locales.Add(locale);
-				if(!keys.Contains(key.ToLowerInvariant())) {
-					keys.Add(key.ToLowerInvariant());
+				localesHash.Add(locale);
+				if(!keysHash.Contains(key)) {
+					keysHash.Add(key);
+					keys.Add(key);
 				}
 				Dictionary<string, string> dictionary;
 				if(!dictionaries.TryGetValue(locale, out dictionary)) {
@@ -57,7 +61,7 @@ namespace Mios.Localization {
 			get { return keys; }
 		}
 		public IEnumerable<string> Locales {
-			get { return locales; }
+			get { return localesHash; }
 		}
 	}
 }
