@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mios.Localization {
+namespace Mios.Localization.Implementations.Readers {
 	public class FilteringLocalizationReader : ILocalizationReader {
 		private readonly ILocalizationReader filtered;
 		private readonly Predicate<string> filter;

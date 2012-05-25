@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mios.Localization {
+namespace Mios.Localization.Localizers {
 	public class DictionaryLocalizer {
 		private readonly IDictionary<string, string> source;
 		public DictionaryLocalizer(IDictionary<string,string> source) {

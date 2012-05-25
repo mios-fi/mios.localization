@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Xml.Linq;
+using Mios.Localization.Implementations;
 using Xunit;
 
 namespace Mios.Localization.Tests {

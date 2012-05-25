@@ -40,24 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DictionaryLocalizer.cs" />
-    <Compile Include="DictionaryDecorator.cs" />
-    <Compile Include="EmbeddedTextDictionaryHandler.cs" />
-    <Compile Include="FilteringLocalizationReader.cs" />
+    <Compile Include="Localizers\DictionaryLocalizer.cs" />
+    <Compile Include="Utilities\DictionaryDecorator.cs" />
+    <Compile Include="Implementations\EmbeddedTextDictionaryHandler.cs" />
+    <Compile Include="Implementations\Readers\FilteringLocalizationReader.cs" />
     <Compile Include="ILocalizationWriter.cs" />
     <Compile Include="ILocalizationReader.cs" />
     <Compile Include="LocalizationDictionary.cs" />
-    <Compile Include="VirtualPathLocalizationReader.cs" />
+    <Compile Include="Implementations\Readers\VirtualPathLocalizationReader.cs" />
     <Compile Include="LocalizationLoaderExtensions.cs" />
-    <Compile Include="LocalizationReader.cs" />
+    <Compile Include="Implementations\Readers\LocalizationReader.cs" />
     <Compile Include="LocalizedString.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="LocalizerExtensions.cs" />
-    <Compile Include="NullLocalizer.cs" />
+    <Compile Include="Localizers\NullLocalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadOnlyDictionary.cs" />
-    <Compile Include="TextDictionaryHandler.cs" />
-    <Compile Include="XmlDictionaryHandler.cs" />
+    <Compile Include="Utilities\ReadOnlyDictionary.cs" />
+    <Compile Include="Implementations\TextDictionaryHandler.cs" />
+    <Compile Include="Implementations\XmlDictionaryHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Implementations\Writers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--

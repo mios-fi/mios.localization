@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
-namespace Mios.Localization {
+namespace Mios.Localization.Utilities {
 	public class ReadOnlyDictionary<TKey, TValue> : DictionaryDecorator<TKey, TValue> {
 		public ReadOnlyDictionary(IDictionary<TKey,TValue> wrapped) : base(wrapped) {
 		}

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Mios.Localization.Utilities;
 
 namespace Mios.Localization {
 	public interface ILocalizationDictionary {

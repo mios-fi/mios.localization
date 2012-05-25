@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mios.Localization {
+namespace Mios.Localization.Implementations.Readers {
 	public class LocalizationReader : ILocalizationReader, IEnumerable<ILocalizationReader> {
-		private List<ILocalizationReader> loaders;
+		private readonly List<ILocalizationReader> loaders;
 		public LocalizationReader() {
 			loaders = new List<ILocalizationReader>();
 		}
@@ -16,9 +16,8 @@ namespace Mios.Localization {
 		}
 		public ILocalizationDictionary Read(string path) {
 			return loaders
-				.Select(t => t.Read(path))
-				.Where(t => t != null)
-				.FirstOrDefault();
+			  .Select(t => t.Read(path))
+        .FirstOrDefault(t => t != null);
 		}
 		public IEnumerator<ILocalizationReader> GetEnumerator() {
 			return loaders.GetEnumerator();

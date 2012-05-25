@@ -1,6 +1,6 @@
 ﻿using System.Web.Hosting;
 
-namespace Mios.Localization {
+namespace Mios.Localization.Implementations.Readers {
 	public class VirtualPathLocalizationReader : ILocalizationReader {
 		private readonly ILocalizationReader wrapped;
 		public VirtualPathLocalizationReader(ILocalizationReader wrapped) {

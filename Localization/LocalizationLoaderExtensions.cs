@@ -1,4 +1,5 @@
 ﻿using System;
+using Mios.Localization.Implementations.Readers;
 
 namespace Mios.Localization {
 	public static class LocalizationLoaderExtensions {

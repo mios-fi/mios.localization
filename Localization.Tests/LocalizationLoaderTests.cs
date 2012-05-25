@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using Mios.Localization.Implementations;
+using Mios.Localization.Implementations.Readers;
 using Xunit;
 
 namespace Mios.Localization.Tests {

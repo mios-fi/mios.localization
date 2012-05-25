@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Mios.Localization {
+namespace Mios.Localization.Implementations {
 	public class XmlDictionaryHandler : ILocalizationReader, ILocalizationWriter {
 		public void Write(ILocalizationDictionary dictionary, string path) {
 			var document = File.Exists(path)?XDocument.Load(path):null;

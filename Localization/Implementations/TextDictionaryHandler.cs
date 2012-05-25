@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Mios.Localization {
+namespace Mios.Localization.Implementations {
 	public class TextDictionaryHandler : ILocalizationReader {
 		public virtual ILocalizationDictionary Read(string sourceFile) {
 			if(!File.Exists(sourceFile)) return null;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Mios.Localization {
+namespace Mios.Localization.Implementations {
 	public class EmbeddedTextDictionaryHandler : TextDictionaryHandler {
 		private static readonly Regex DictionaryStartPattern = new Regex(@"^@\*\s+DICTIONARY");
 		private static readonly Regex WhitespaceDetectionPattern = new Regex(@"^\s*");
