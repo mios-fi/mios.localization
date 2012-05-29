@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Mios.Localization.Implementations {
-	public class EmbeddedTextDictionaryHandler : TextDictionaryHandler {
+namespace Mios.Localization.Readers {
+	public class EmbeddedTextLocalizationReader : TextLocalizationReader {
 		private static readonly Regex DictionaryStartPattern = new Regex(@"^@\*\s+DICTIONARY");
 		private static readonly Regex WhitespaceDetectionPattern = new Regex(@"^\s*");
 		protected override IEnumerable<string> ReadLines(TextReader reader) {

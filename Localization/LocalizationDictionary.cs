@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mios.Localization.Utilities;
 
 namespace Mios.Localization {
-	public interface ILocalizationDictionary {
-		string this[string locale, string key] { get; set; }
-		IEnumerable<string> Keys { get; }
-		IEnumerable<string> Locales { get; }
-		IDictionary<string, string> InLocale(string locale);
-	}
-
-	public class LocalizationDictionary : ILocalizationDictionary {
+  public class LocalizationDictionary : ILocalizationDictionary {
 		private readonly IEqualityComparer<string> comparer;
 		private readonly List<string> keys;
 		private readonly HashSet<string> localesHash;
 		private readonly HashSet<string> keysHash;
 		private readonly Dictionary<string, Dictionary<string, string>> dictionaries;
-		public LocalizationDictionary() : this(StringComparer.InvariantCulture) {
+
+    public IList<Include> Includes { get; protected set; }
+
+    public struct Include {
+      public string Path { get; set; }
+      public string Prefix { get; set; }
+    }
+
+    public LocalizationDictionary() : this(StringComparer.InvariantCulture) {
 		}
 		public LocalizationDictionary(IEqualityComparer<string> comparer) {
+      Includes = new List<Include>();
 			this.comparer = comparer;
 			keys = new List<string>();
 			localesHash = new HashSet<string>(comparer);

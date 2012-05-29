@@ -40,28 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILocalizationDictionary.cs" />
+    <Compile Include="IResolver.cs" />
+    <Compile Include="Readers\XmlLocalizationReader.cs" />
+    <Compile Include="Resolvers\FileSystemResolver.cs" />
+    <Compile Include="Resolvers\VirtualPathProviderResolver.cs" />
+    <Compile Include="Readers\LegacyXmlLocalizationReader.cs" />
     <Compile Include="Localizers\DictionaryLocalizer.cs" />
-    <Compile Include="Utilities\DictionaryDecorator.cs" />
-    <Compile Include="Implementations\EmbeddedTextDictionaryHandler.cs" />
-    <Compile Include="Implementations\Readers\FilteringLocalizationReader.cs" />
-    <Compile Include="ILocalizationWriter.cs" />
-    <Compile Include="ILocalizationReader.cs" />
+    <Compile Include="Readers\XmlLocalizationReaderException.cs" />
+    <Compile Include="Readers\EmbeddedTextLocalizationReader.cs" />
     <Compile Include="LocalizationDictionary.cs" />
-    <Compile Include="Implementations\Readers\VirtualPathLocalizationReader.cs" />
-    <Compile Include="LocalizationLoaderExtensions.cs" />
-    <Compile Include="Implementations\Readers\LocalizationReader.cs" />
     <Compile Include="LocalizedString.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="LocalizerExtensions.cs" />
     <Compile Include="Localizers\NullLocalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\ReadOnlyDictionary.cs" />
-    <Compile Include="Implementations\TextDictionaryHandler.cs" />
-    <Compile Include="Implementations\XmlDictionaryHandler.cs" />
+    <Compile Include="ReadOnlyDictionary.cs" />
+    <Compile Include="Readers\TextLocalizationReader.cs" />
+    <Compile Include="Writers\LegacyXmlLocalizationWriter.cs" />
+    <Compile Include="Writers\XmlLocalizationWriter.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Implementations\Writers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
   <PropertyGroup>

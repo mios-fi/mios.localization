@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Mios.Localization.Implementations {
-	public class TextDictionaryHandler : ILocalizationReader {
-		public virtual ILocalizationDictionary Read(string sourceFile) {
+namespace Mios.Localization.Readers {
+	public class TextLocalizationReader {
+		public virtual ILocalizationDictionary Read(string sourceFile, ILocalizationDictionary dictionary) {
 			if(!File.Exists(sourceFile)) return null;
 			using(var reader = new StreamReader(sourceFile)) {
-				return Load(reader);
+				return Read(reader,dictionary);
 			}
 		}
-		public virtual ILocalizationDictionary Load(TextReader reader) {
-			return Load(ReadLines(reader));
+		public virtual ILocalizationDictionary Read(TextReader reader, ILocalizationDictionary dictionary) {
+			return Read(ReadLines(reader),dictionary);
 		}
-		protected ILocalizationDictionary Load(IEnumerable<string> lines) {
-			var dictionary = new LocalizationDictionary();
+		protected ILocalizationDictionary Read(IEnumerable<string> lines, ILocalizationDictionary dictionary) {
 			string key = null, locale = null, value = null, whitespace = null;
 			foreach(var line in lines) {
 				if(line.TrimStart().StartsWith("#")) {
