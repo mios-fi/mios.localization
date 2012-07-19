@@ -1,6 +1,5 @@
 using System.IO;
 using System.Web.Hosting;
-using Mios.Localization.Readers;
 
 namespace Mios.Localization.Resolvers {
   public class VirtualPathProviderResolver : IResolver {
@@ -9,7 +8,9 @@ namespace Mios.Localization.Resolvers {
       this.virtualPathProvider = virtualPathProvider;
     }
     public Stream Open(string path) {
-      return virtualPathProvider.GetFile(path).Open();
+      return virtualPathProvider.FileExists(path)
+        ? virtualPathProvider.GetFile(path).Open()
+        : null;
     }
     public string Combine(string basePath, string path) {
       var ix = basePath.LastIndexOf('/');

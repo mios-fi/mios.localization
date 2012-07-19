@@ -19,14 +19,16 @@ namespace Mios.Localization.Readers {
     }
 
     public void Read(ILocalizationDictionary dictionary) {
-      using(var stream = Resolver.Open(path))
-      using(var reader = XmlReader.Create(stream)) {
-        while(reader.Read()) {
-          if(reader.NodeType == XmlNodeType.ProcessingInstruction) {
-            ReadProcessingInstruction(reader, dictionary);
-          } else if(reader.NodeType == XmlNodeType.Element && reader.Name == "dictionary") {
-            ReadPageElement(reader, dictionary);
-            return;
+      using(var stream = Resolver.Open(path)) {
+        if(stream==null) return;
+        using(var reader = XmlReader.Create(stream)) {
+          while(reader.Read()) {
+            if(reader.NodeType == XmlNodeType.ProcessingInstruction) {
+              ReadProcessingInstruction(reader, dictionary);
+            } else if(reader.NodeType == XmlNodeType.Element && reader.Name == "dictionary") {
+              ReadPageElement(reader, dictionary);
+              return;
+            }
           }
         }
       }
