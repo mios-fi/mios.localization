@@ -17,7 +17,7 @@ namespace Mios.Localization.Tests.Readers {
         t.Open("file.xml") == 
           ToStream(
             @"<?xml version=""1.0""?>
-              <?mios-localization include=""second.xml""?>
+              <?mios-localization include=""second.xml"" prefix=""pfx""?>
               <dictionary>
                 <key id=""first"">
                   <val for=""fi"">abc</val>
@@ -39,9 +39,29 @@ namespace Mios.Localization.Tests.Readers {
       new XmlLocalizationReader("file.xml") {
         Resolver = resolver
       }.Read(dictionary);
-      Assert.Contains(new LocalizationDictionary.Include { Path = "second.xml", Prefix = null }, dictionary.Includes);
       Assert.Equal("abc", dictionary["fi", "first"]);
       Assert.Equal("ghi", dictionary["fi", "second"]);
+    }
+
+    [Fact]
+    public void RecordsIncludes() {
+      var resolver = Mock.Of<IResolver>(t =>
+        t.Open("file.xml") == 
+          ToStream(
+            @"<?xml version=""1.0"" encoding=""utf-8""?>
+              <?mios-localization include=""second.xml""?>
+              <dictionary>
+                <key id=""test"">
+                  <val for=""fi""><![CDATA[Testaus]]></val>
+                  <val for=""sv""><![CDATA[Testning]]></val>
+                </key>
+              </dictionary>")
+      );
+      var dictionary = new LocalizationDictionary();
+      new XmlLocalizationReader("file.xml") {
+        Resolver = resolver, Recursive = false
+      }.Read(dictionary);
+      Assert.Contains(new LocalizationDictionary.Include { Path = "second.xml" }, dictionary.Includes);
     }
 
     [Fact]
