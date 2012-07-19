@@ -4,23 +4,15 @@ using System.Xml.Linq;
 
 namespace Mios.Localization.Writers {
   public class LegacyXmlLocalizationWriter {
-		public void Write(ILocalizationDictionary dictionary, string path) {
-			var document = File.Exists(path)?XDocument.Load(path):null;
+    public void Write(ILocalizationDictionary dictionary, string path) {
 			using(var writer = new StreamWriter(path)) {
-				Write(dictionary, document, writer);
+				Write(dictionary, writer);
 			}
 		}
 		public void Write(ILocalizationDictionary dictionary, TextWriter writer) {
-			Write(dictionary, null, writer);
-		}
-
-		static void Write(ILocalizationDictionary dictionary, XDocument document, TextWriter writer) {
-			document = document ?? new XDocument();
-			var root = document.Root;
-			if(root==null) {
-				document.Add(root = new XElement("page"));
-			}
-			root.Elements("key").Remove();
+			var document = new XDocument();
+			var root = new XElement("page");
+			document.Add(root);
 			root.Add(dictionary.Keys
 				.Select(key => {
 					var e = new XElement("key");
