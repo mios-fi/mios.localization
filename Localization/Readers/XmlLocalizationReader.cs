@@ -79,7 +79,9 @@ namespace Mios.Localization.Readers {
         if(locale==null) {
           throw new XmlLocalizationReaderException("Missing required attribute 'for' on element 'val'");
         }
-        var val = reader.ReadElementContentAsString();
+        if(reader.IsEmptyElement) continue;
+        reader.MoveToContent();
+        var val = reader.ReadString();
         dictionary[locale, id] = val;
       } while(reader.ReadToNextSibling("val"));
     }

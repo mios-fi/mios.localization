@@ -252,6 +252,27 @@ namespace Mios.Localization.Tests.Readers {
     }
 
     [Fact]
+    public void ReadsCompactFiles() {
+      var resolver = Mock.Of<IResolver>(t =>
+        t.Open(It.IsAny<string>()) == 
+          ToStream(
+@"<?xml version=""1.0""?>
+<dictionary>
+<key id=""xyz""><val for=""fi""></val></key>
+<key id=""pqr""><val for=""fi""></val></key>
+</dictionary>")
+      );
+      var dictionary = new LocalizationDictionary();
+      new XmlLocalizationReader("file.xml") {
+        Resolver = resolver
+      }.Read(dictionary);
+      Assert.Contains("xyz", dictionary.Keys);
+      Assert.Contains("pqr", dictionary.Keys);
+      Assert.Equal("", dictionary["fi", "xyz"]);
+      Assert.Equal("", dictionary["fi", "pqr"]);
+    }
+
+    [Fact]
     public void SkipsUnknownElements() {
       var resolver = Mock.Of<IResolver>(t =>
         t.Open(It.IsAny<string>()) == 
