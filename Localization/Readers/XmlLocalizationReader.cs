@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -18,19 +19,28 @@ namespace Mios.Localization.Readers {
       Resolver = new FileSystemResolver();
     }
 
-    public void Read(ILocalizationDictionary dictionary) {
+
+    public bool TryRead(ILocalizationDictionary dictionary) {
       using(var stream = Resolver.Open(path)) {
-        if(stream==null) return;
+        if(stream==null) {
+          return false;
+        }
         using(var reader = XmlReader.Create(stream)) {
           while(reader.Read()) {
             if(reader.NodeType == XmlNodeType.ProcessingInstruction) {
               ReadProcessingInstruction(reader, dictionary);
             } else if(reader.NodeType == XmlNodeType.Element && reader.Name == "dictionary") {
               ReadPageElement(reader, dictionary);
-              return;
             }
           }
         }
+      }
+      return true;
+    }
+
+    public void Read(ILocalizationDictionary dictionary) {
+      if(!TryRead(dictionary)) {
+        throw new FileNotFoundException("Requested dictionary could not be found", path);
       }
     }
 
