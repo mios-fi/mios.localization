@@ -10,20 +10,24 @@ namespace Mios.Localization.Readers {
     private readonly string path;
     public string Prefix { get; set; }
     public bool Recursive { get; set; }
+    public bool ThrowWhenNotFound { get; set; }
     public IResolver Resolver { get; set; }
 
     public XmlLocalizationReader(string path) {
       this.path = path;
       Recursive = true;
+      ThrowWhenNotFound = true;
       Prefix = String.Empty;
       Resolver = new FileSystemResolver();
     }
 
-
-    public bool TryRead(ILocalizationDictionary dictionary) {
+    public void Read(ILocalizationDictionary dictionary) {
       using(var stream = Resolver.Open(path)) {
+        if(stream==null && ThrowWhenNotFound) {
+          throw new FileNotFoundException(String.Format("Requested dictionary '{0}' could not be found", path), path);
+        }
         if(stream==null) {
-          return false;
+          return;
         }
         using(var reader = XmlReader.Create(stream)) {
           while(reader.Read()) {
@@ -34,13 +38,6 @@ namespace Mios.Localization.Readers {
             }
           }
         }
-      }
-      return true;
-    }
-
-    public void Read(ILocalizationDictionary dictionary) {
-      if(!TryRead(dictionary)) {
-        throw new FileNotFoundException("Requested dictionary could not be found", path);
       }
     }
 
@@ -68,13 +65,14 @@ namespace Mios.Localization.Readers {
     private void ReadNestedDictionary(string path, string prefix, ILocalizationDictionary dictionary) {
       var combinedPath = Resolver.Combine(this.path, path);
       var nestedReader = new XmlLocalizationReader(combinedPath) {
+        ThrowWhenNotFound = ThrowWhenNotFound,
         Resolver = Resolver,
         Prefix = Prefix + prefix
       };
       nestedReader.Read(dictionary);
     }
 
-    private static void ReadPageElement(XmlReader reader, ILocalizationDictionary dictionary) {
+    private void ReadPageElement(XmlReader reader, ILocalizationDictionary dictionary) {
       if(!reader.ReadToDescendant("key")) return;
       do {
         ReadKeyElement(reader,dictionary);
