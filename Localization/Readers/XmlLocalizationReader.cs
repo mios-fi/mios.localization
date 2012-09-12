@@ -79,7 +79,7 @@ namespace Mios.Localization.Readers {
       } while(reader.ReadToNextSibling("key"));
     }
 
-    private static void ReadKeyElement(XmlReader reader, ILocalizationDictionary dictionary) {
+    private void ReadKeyElement(XmlReader reader, ILocalizationDictionary dictionary) {
       var id = reader.GetAttribute("id");
       if(!reader.ReadToDescendant("val")) return;
       do {
@@ -90,7 +90,7 @@ namespace Mios.Localization.Readers {
         if(reader.IsEmptyElement) continue;
         reader.MoveToContent();
         var val = reader.ReadString();
-        dictionary[locale, id] = val;
+        dictionary[locale, Prefix+id] = val;
       } while(reader.ReadToNextSibling("val"));
     }
   }

@@ -40,7 +40,7 @@ namespace Mios.Localization.Tests.Readers {
         Resolver = resolver
       }.Read(dictionary);
       Assert.Equal("abc", dictionary["fi", "first"]);
-      Assert.Equal("ghi", dictionary["fi", "second"]);
+      Assert.Equal("ghi", dictionary["fi", "pfxsecond"]);
     }
 
     [Fact]
