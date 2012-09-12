@@ -1,5 +1,7 @@
-﻿namespace Mios.Localization {
-	public struct LocalizedString {
+﻿using System.Web;
+
+namespace Mios.Localization {
+	public struct LocalizedString : IHtmlString {
 		public string Localization { get; private set; }
 		public string String { get; private set; }
 
@@ -10,7 +12,12 @@
 		public override string ToString() {
 			return Localization??String;
 		}
-		public static implicit operator string(LocalizedString d) {
+
+	  public string ToHtmlString() {
+      return ToString();
+	  }
+
+	  public static implicit operator string(LocalizedString d) {
 			return d.ToString();
 		}
 	}
