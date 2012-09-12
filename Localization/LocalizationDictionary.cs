@@ -16,7 +16,7 @@ namespace Mios.Localization {
       public string Prefix { get; set; }
     }
 
-    public LocalizationDictionary() : this(StringComparer.InvariantCulture) {
+    public LocalizationDictionary() : this(StringComparer.OrdinalIgnoreCase) {
 		}
 		public LocalizationDictionary(IEqualityComparer<string> comparer) {
       Includes = new List<Include>();
