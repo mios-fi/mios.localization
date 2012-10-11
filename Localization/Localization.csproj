@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ILocalizationDictionary.cs" />
     <Compile Include="IResolver.cs" />
+    <Compile Include="Localizers\FallbackDictionaryLocalizer.cs" />
     <Compile Include="Readers\XmlLocalizationReader.cs" />
     <Compile Include="Resolvers\FileSystemResolver.cs" />
     <Compile Include="Resolvers\VirtualPathProviderResolver.cs" />

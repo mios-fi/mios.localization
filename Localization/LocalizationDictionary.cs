@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Mios.Localization {
-  public class LocalizationDictionary : ILocalizationDictionary {
+  public class LocalizationDictionary : ILocalizationDictionary, IEnumerable {
 		private readonly IEqualityComparer<string> comparer;
 		private readonly List<string> keys;
 		private readonly HashSet<string> localesHash;
@@ -25,6 +26,9 @@ namespace Mios.Localization {
 			localesHash = new HashSet<string>(comparer);
 			keysHash = new HashSet<string>(comparer);
 			dictionaries = new Dictionary<string, Dictionary<string, string>>(comparer);
+		}
+		public void Add(string locale, string key, string value) {
+			this[locale, key] = value;
 		}
 		public string this[string locale, string key] {
 			get {
@@ -63,6 +67,9 @@ namespace Mios.Localization {
 		}
 		public IEnumerable<string> Locales {
 			get { return localesHash; }
+		}
+		public IEnumerator GetEnumerator() {
+			yield break;
 		}
 	}
 }
