@@ -45,7 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Localizers\FallbackDictionaryLocalizer.cs" />
+    <Compile Include="Localizers\FallbackDictionaryLocalizerTests.cs" />
     <Compile Include="Resolvers\FileSystemResolverTests.cs" />
     <Compile Include="Resolvers\VirtualPathProviderResolverTests.cs" />
     <Compile Include="Writers\LegacyXmlDictionaryWriterTests.cs" />
