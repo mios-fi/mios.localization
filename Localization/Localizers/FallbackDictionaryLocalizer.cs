@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Mios.Localization.Localizers {
 	public class FallbackDictionaryLocalizer {
@@ -9,12 +7,15 @@ namespace Mios.Localization.Localizers {
 		public Localizer DefaultLocalizer { get; set; }
 		private  string[] locales;
 		public FallbackDictionaryLocalizer(LocalizationDictionary dictionary, params string[] locales) {
-			this.dictionary = dictionary;
+		  if(dictionary == null) throw new ArgumentNullException("dictionary");
+		  if(locales == null) throw new ArgumentNullException("locales");
+      DefaultLocalizer = NullLocalizer.Instance;
+      this.dictionary = dictionary;
 			this.locales = locales;
 		}
 		public LocalizedString Localize(string original, params object[] args) {
 			if(original == null) return new LocalizedString();
-			string localized = locales
+			var localized = locales
 				.Select(t => dictionary[t, original])
 				.FirstOrDefault(t => t != null);
 			if(localized == null) {
